@@ -232,6 +232,20 @@
     [data-card]{transform:none !important}
     [data-card]::before{display:none}
   }
+  /* reviews carousel */
+  [data-rev-track]{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 32px)/3);gap:16px;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 2px 4px}
+  [data-rev-track]::-webkit-scrollbar{display:none}
+  [data-rev-track] > *{scroll-snap-align:start}
+  @media (max-width:900px){[data-rev-track]{grid-auto-columns:calc((100% - 16px)/2)}}
+  @media (max-width:620px){[data-rev-track]{grid-auto-columns:87%}}
+  @media (prefers-reduced-motion:reduce){[data-rev-track]{scroll-behavior:auto}}
+  [data-rev-controls]{display:flex;align-items:center;gap:14px;margin-top:22px;flex-wrap:wrap}
+  [data-rev-btn]{width:42px;height:42px;flex:none;border-radius:50%;border:1px solid var(--lineHi);background:var(--card);color:var(--cyan);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,border-color .15s,transform .12s}
+  [data-rev-btn]:hover{background:rgba(37,211,238,.10);transform:translateY(-1px)}
+  [data-rev-dots]{display:flex;gap:8px;align-items:center}
+  [data-rev-dot]{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.22);cursor:pointer;transition:background .2s,width .2s}
+  [data-rev-dot][aria-current="true"]{background:linear-gradient(100deg,#25D3EE,#8E6BFF);width:22px;border-radius:5px}
+  [data-rev-play]{margin-left:auto}
   [data-root] [id]{scroll-margin-top:82px}
   @media (max-width:900px){
     [data-nav]{display:none !important}
@@ -328,7 +342,7 @@
           </div>
           <div data-hero style="display:flex;align-items:center;gap:15px;margin-top:30px;flex-wrap:wrap">
             <span style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:7px 14px 7px 12px"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.19 3.32v2.76h3.54c2.08-1.92 3.29-4.74 3.29-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.54-2.76c-.98.66-2.24 1.06-3.74 1.06-2.87 0-5.3-1.94-6.17-4.55H2.18v2.85A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.83 14.09a6.6 6.6 0 0 1-.35-2.09c0-.73.13-1.43.35-2.09V7.06H2.18a11 11 0 0 0 0 9.88l3.65-2.85z"/><path fill="#EA4335" d="M12 5.36c1.62 0 3.07.56 4.21 1.65l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.65 2.85C6.7 7.3 9.13 5.36 12 5.36z"/></svg><span style="display:inline-flex;gap:3px" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="19" height="19" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="19" height="19" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="19" height="19" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="19" height="19" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span></span>
-            <span style="font-weight:700;color:#fff;white-space:nowrap"><b data-count="5.0" style="color:var(--cyan)">5.0</b> · <span data-count="57">57</span> Google reviews</span>
+            <span style="font-weight:700;color:#fff;white-space:nowrap"><b data-count="5.0" data-review-rating style="color:var(--cyan)">5.0</b> · <span data-count="57" data-review-count>57</span> Google reviews</span>
             <span style="width:1px;height:20px;background:var(--line)"></span>
             <span style="font-family:var(--font-display);font-variation-settings:'wdth' 76;text-transform:uppercase;letter-spacing:.14em;font-size:.82rem;color:#aab2d4;font-weight:700">Same-day &amp; emergency service</span>
           </div>
@@ -362,8 +376,8 @@
     <!-- TRUST STRIP -->
     <div style="background:rgba(26,17,80,.62);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
       <div style="max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 34px;justify-content:center;padding:20px 24px">
-        <span data-reveal style="display:inline-flex;align-items:center;gap:10px;color:#cdd4ee;font-weight:600;font-size:.95rem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#25D3EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5.2 5.7.8-4.1 4 1 5.7L12 21.8 6.9 18.7l1-5.7-4.1-4 5.7-.8z"/></svg>5.0 Rating</span>
-        <span data-reveal style="display:inline-flex;align-items:center;gap:10px;color:#cdd4ee;font-weight:600;font-size:.95rem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#25D3EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>57 Five-Star Reviews</span>
+        <span data-reveal style="display:inline-flex;align-items:center;gap:10px;color:#cdd4ee;font-weight:600;font-size:.95rem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#25D3EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5.2 5.7.8-4.1 4 1 5.7L12 21.8 6.9 18.7l1-5.7-4.1-4 5.7-.8z"/></svg><span data-review-rating>5.0</span> Rating</span>
+        <span data-reveal style="display:inline-flex;align-items:center;gap:10px;color:#cdd4ee;font-weight:600;font-size:.95rem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#25D3EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span data-review-count>57</span> Five-Star Reviews</span>
         <span data-reveal style="display:inline-flex;align-items:center;gap:10px;color:#cdd4ee;font-weight:600;font-size:.95rem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#25D3EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Open 7 Days</span>
         <span data-reveal style="display:inline-flex;align-items:center;gap:10px;color:#cdd4ee;font-weight:600;font-size:.95rem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#25D3EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>We Come To You</span>
         <span data-reveal style="display:inline-flex;align-items:center;gap:10px;color:#cdd4ee;font-weight:600;font-size:.95rem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#25D3EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V5z"/><path d="M9 12l2 2 4-4"/></svg>Honest, Fair Pricing</span>
@@ -526,33 +540,35 @@
       <div style="max-width:var(--maxw);margin:0 auto;padding:0 24px">
         <div data-reveal style="max-width:56ch">
           <div style="font-family:var(--font-display);font-variation-settings:'wdth' 76;text-transform:uppercase;letter-spacing:.24em;font-weight:700;font-size:.8rem;color:var(--cyan);text-shadow:0 0 14px rgba(37,211,238,.5)">What drivers say</div>
-          <h2 style="margin:10px 0 0;font-weight:800;letter-spacing:-.025em;color:var(--ink);font-size:clamp(1.9rem,3.6vw,2.7rem);text-shadow:0 0 30px rgba(37,211,238,.15);text-wrap:balance">Rated 5.0 across 57 reviews.</h2>
+          <h2 style="margin:10px 0 0;font-weight:800;letter-spacing:-.025em;color:var(--ink);font-size:clamp(1.9rem,3.6vw,2.7rem);text-shadow:0 0 30px rgba(37,211,238,.15);text-wrap:balance">Rated <span data-review-rating>5.0</span> across <span data-review-count>57</span> reviews.</h2>
           <div style="display:inline-flex;align-items:center;gap:14px;margin-top:20px;background:var(--card);border:1px solid var(--lineHi);border-radius:14px;padding:13px 20px;box-shadow:0 10px 30px rgba(0,0,0,.28)">
             <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.19 3.32v2.76h3.54c2.08-1.92 3.29-4.74 3.29-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.54-2.76c-.98.66-2.24 1.06-3.74 1.06-2.87 0-5.3-1.94-6.17-4.55H2.18v2.85A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.83 14.09a6.6 6.6 0 0 1-.35-2.09c0-.73.13-1.43.35-2.09V7.06H2.18a11 11 0 0 0 0 9.88l3.65-2.85z"/><path fill="#EA4335" d="M12 5.36c1.62 0 3.07.56 4.21 1.65l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.65 2.85C6.7 7.3 9.13 5.36 12 5.36z"/></svg>
             <div style="display:flex;flex-direction:column;gap:4px;line-height:1">
               <span style="font-weight:800;color:#fff;font-size:.95rem">Google Rating</span>
-              <span style="display:inline-flex;align-items:center;gap:8px"><b style="color:var(--cyan);font-weight:800;font-size:1.05rem">5.0</b><span style="display:inline-flex;gap:2px" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span><span style="color:var(--muted);font-size:.82rem;font-weight:600">57 reviews</span></span>
+              <span style="display:inline-flex;align-items:center;gap:8px"><b data-review-rating style="color:var(--cyan);font-weight:800;font-size:1.05rem">5.0</b><span style="display:inline-flex;gap:2px" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span><span style="color:var(--muted);font-size:.82rem;font-weight:600"><span data-review-count>57</span> reviews</span></span>
             </div>
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px" data-cardgrid>
-          <div data-reveal style="border:1px solid var(--line);border-radius:13px;padding:24px;background:var(--card);display:flex;flex-direction:column;gap:14px">
-            <span style="display:inline-flex;gap:3px" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span>
-            <p style="margin:0;font-size:1.08rem;font-weight:600;color:var(--ink);line-height:1.5">On time, fair prices, professional tools — a great mobile mechanic. Highly recommend.</p>
-            <div style="color:var(--muted);font-weight:700;font-size:.9rem;margin-top:auto">Allan K. · Google review</div>
-          </div>
-          <div data-reveal style="border:1px solid var(--line);border-radius:13px;padding:24px;background:var(--card);display:flex;flex-direction:column;gap:14px">
-            <span style="display:inline-flex;gap:3px" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span>
-            <p style="margin:0;font-size:1.08rem;font-weight:600;color:var(--ink);line-height:1.5">Took the time to explain the issue in simple terms and fixed my problem. I'll do business again.</p>
-            <div style="color:var(--muted);font-weight:700;font-size:.9rem;margin-top:auto">coachray · Local Guide</div>
-          </div>
-          <div data-reveal style="border:1px solid var(--line);border-radius:13px;padding:24px;background:var(--card);display:flex;flex-direction:column;gap:14px">
-            <span style="display:inline-flex;gap:3px" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span>
-            <p style="margin:0;font-size:1.08rem;font-weight:600;color:var(--ink);line-height:1.5">On vacation when our van broke down near Fisherman's Village — they got us fixed up and back on the road. Honest and kind.</p>
-            <div style="color:var(--muted);font-weight:700;font-size:.9rem;margin-top:auto">Visitor from out of state · Google review</div>
+        <div data-rev data-reveal style="margin-top:36px">
+          <div data-rev-track role="list" aria-label="Reviews from Google">
+            <div role="listitem" style="border:1px solid var(--line);border-radius:13px;padding:24px;background:var(--card);display:flex;flex-direction:column;gap:14px">
+              <span style="display:inline-flex;gap:3px" aria-label="5 out of 5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span>
+              <p style="margin:0;font-size:1.04rem;font-weight:600;color:var(--ink);line-height:1.5;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden">On time, fair prices, professional tools — a great mobile mechanic. Highly recommend.</p>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:auto"><span aria-hidden="true" style="width:34px;height:34px;border-radius:50%;flex:none;background:var(--grad);color:#0B0A24;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem">A</span><span style="color:var(--muted);font-weight:700;font-size:.9rem">Allan K. · Google review</span></div>
+            </div>
+            <div role="listitem" style="border:1px solid var(--line);border-radius:13px;padding:24px;background:var(--card);display:flex;flex-direction:column;gap:14px">
+              <span style="display:inline-flex;gap:3px" aria-label="5 out of 5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span>
+              <p style="margin:0;font-size:1.04rem;font-weight:600;color:var(--ink);line-height:1.5;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden">Took the time to explain the issue in simple terms and fixed my problem. I'll do business again.</p>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:auto"><span aria-hidden="true" style="width:34px;height:34px;border-radius:50%;flex:none;background:var(--grad);color:#0B0A24;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem">C</span><span style="color:var(--muted);font-weight:700;font-size:.9rem">coachray · Local Guide</span></div>
+            </div>
+            <div role="listitem" style="border:1px solid var(--line);border-radius:13px;padding:24px;background:var(--card);display:flex;flex-direction:column;gap:14px">
+              <span style="display:inline-flex;gap:3px" aria-label="5 out of 5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg></span>
+              <p style="margin:0;font-size:1.04rem;font-weight:600;color:var(--ink);line-height:1.5;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden">On vacation when our van broke down near Fisherman's Village — they got us fixed up and back on the road. Honest and kind.</p>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:auto"><span aria-hidden="true" style="width:34px;height:34px;border-radius:50%;flex:none;background:var(--grad);color:#0B0A24;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem">V</span><span style="color:var(--muted);font-weight:700;font-size:.9rem">Visitor from out of state · Google review</span></div>
+            </div>
           </div>
         </div>
-        <a data-reveal href="https://www.google.com/maps/place/Simple+Diagnostic+Mobile+Repair/@26.93572,-82.3858487,10z/data=!4m8!3m7!1s0x430f34baa5d52975:0x14ee0f2ac290d92f!8m2!3d26.936103!4d-82.0561966!9m1!1b1!16s%2Fg%2F11yfb_6w00?entry=ttu&amp;g_ep=EgoyMDI2MDcxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" style="margin-top:26px;font-weight:800;color:var(--cyan);display:inline-flex;align-items:center;gap:8px">Read all 57 reviews on Google →</a>
+        <a data-reveal href="https://www.google.com/maps/place/Simple+Diagnostic+Mobile+Repair/@26.93572,-82.3858487,10z/data=!4m8!3m7!1s0x430f34baa5d52975:0x14ee0f2ac290d92f!8m2!3d26.936103!4d-82.0561966!9m1!1b1!16s%2Fg%2F11yfb_6w00?entry=ttu&amp;g_ep=EgoyMDI2MDcxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" style="margin-top:26px;font-weight:800;color:var(--cyan);display:inline-flex;align-items:center;gap:8px">Read all <span data-review-count>57</span> reviews on Google →</a>
       </div>
     </section>
 
@@ -733,6 +749,22 @@
   /* Extra fields some providers require (e.g. Web3Forms needs its
      access_key here). Leave {} if yours doesn't. */
   var LEAD_EXTRA_FIELDS = {};
+
+  /* ==============================================================
+     LIVE GOOGLE REVIEWS (optional) — paste your Featurable widget id.
+
+     One-time setup (no Google API key, no billing, free):
+       1. Go to featurable.com, sign in with the Google account that
+          owns the Simple Diagnostic Google Business Profile.
+       2. Create a widget for the business; copy its widget id
+          (the id from featurable.com/app/widgets).
+       3. Paste it between the quotes below and redeploy.
+
+     Once set, the reviews section shows your REAL Google reviews and
+     the star rating + review count auto-update (Featurable re-syncs
+     roughly daily). Left blank, the section keeps the reviews below.
+     ============================================================== */
+  var FEATURABLE_WIDGET_ID = '';
 
   function init() {
     var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -944,6 +976,193 @@
       }, { threshold: 0.6 });
       q('[data-count]').forEach(function (el) { cio.observe(el); });
     }
+
+    // Reviews: rotating carousel + optional live Google reviews (Featurable)
+    (function () {
+      var wrap = document.querySelector('[data-rev]');
+      if (!wrap) return;
+      var track = wrap.querySelector('[data-rev-track]');
+
+      var A_L = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>';
+      var A_R = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+      var PLAY = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+      var PAUSE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>';
+      var STAR = '<svg width="16" height="16" viewBox="0 0 24 24" fill="#25D3EE" aria-hidden="true"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>';
+
+      function esc(t) { var d = document.createElement('div'); d.textContent = (t == null ? '' : String(t)); return d.innerHTML; }
+      function stars(n) { n = Math.max(0, Math.min(5, Math.round(n || 5))); var o = ''; for (var i = 0; i < n; i++) o += STAR; return o; }
+      function fmt(v) { return (Math.round(v * 10) / 10).toFixed(1); }
+
+      function setAggregate(rating, count) {
+        if (rating != null && !isNaN(rating)) {
+          [].forEach.call(document.querySelectorAll('[data-review-rating]'), function (el) {
+            el.textContent = fmt(rating);
+            if (el.hasAttribute('data-count')) el.setAttribute('data-count', fmt(rating));
+          });
+        }
+        if (count != null && !isNaN(count)) {
+          var c = Math.round(count);
+          [].forEach.call(document.querySelectorAll('[data-review-count]'), function (el) {
+            el.textContent = String(c);
+            if (el.hasAttribute('data-count')) el.setAttribute('data-count', String(c));
+          });
+        }
+        try {
+          [].forEach.call(document.querySelectorAll('script[type="application/ld+json"]'), function (tag) {
+            var d = JSON.parse(tag.textContent);
+            if (d && d['@type'] === 'AutoRepair' && d.aggregateRating) {
+              if (count != null) d.aggregateRating.reviewCount = String(Math.round(count));
+              if (rating != null) d.aggregateRating.ratingValue = fmt(rating);
+              tag.textContent = JSON.stringify(d, null, 2);
+            }
+          });
+        } catch (e) {}
+      }
+
+      function cardHTML(r) {
+        var name = esc(r.author || 'Google user');
+        var av = r.avatar
+          ? '<img src="' + esc(r.avatar) + '" alt="" width="34" height="34" loading="lazy" decoding="async" referrerpolicy="no-referrer" style="width:34px;height:34px;border-radius:50%;flex:none;object-fit:cover">'
+          : '<span aria-hidden="true" style="width:34px;height:34px;border-radius:50%;flex:none;background:var(--grad);color:#0B0A24;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem">' + esc((r.author || 'G').trim().charAt(0).toUpperCase()) + '</span>';
+        var who = name + ' · Google review';
+        var whoEl = r.url
+          ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener" style="color:var(--muted);font-weight:700;font-size:.9rem;text-decoration:none">' + who + ' ↗</a>'
+          : '<span style="color:var(--muted);font-weight:700;font-size:.9rem">' + who + '</span>';
+        return '<div role="listitem" style="border:1px solid var(--line);border-radius:13px;padding:24px;background:var(--card);display:flex;flex-direction:column;gap:14px">'
+          + '<span style="display:inline-flex;gap:3px" aria-label="' + Math.round(r.rating || 5) + ' out of 5 stars">' + stars(r.rating) + '</span>'
+          + '<p style="margin:0;font-size:1.04rem;font-weight:600;color:var(--ink);line-height:1.5;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden">' + esc(r.text) + '</p>'
+          + '<div style="display:flex;align-items:center;gap:10px;margin-top:auto">' + av + whoEl + '</div>'
+          + '</div>';
+      }
+
+      // --- carousel controls ---
+      var controls, dotsWrap, playBtn, playing = false, timer = null, suspended = false;
+      function childLeft(c) { return c.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft; }
+      function metrics() {
+        var vw = track.clientWidth, cards = track.children.length;
+        if (!vw || vw < 40 || !cards) return { ok: false, pages: 1, current: 0, perView: 1 };
+        var cardW = track.children[0].getBoundingClientRect().width || vw;
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 16;
+        var perView = Math.max(1, Math.round(vw / (cardW + gap)));
+        var pages = Math.max(1, Math.ceil(cards / perView));
+        // current page = the page holding the card nearest the left edge
+        var idx = 0, best = Infinity, sl = track.scrollLeft;
+        for (var k = 0; k < cards; k++) { var dl = Math.abs(childLeft(track.children[k]) - sl); if (dl < best) { best = dl; idx = k; } }
+        var current = Math.floor(idx / perView);
+        // last page may hold < perView cards and can't scroll its first card to the edge:
+        // when pinned at max scroll, treat it as the final page so the right dot lights.
+        if (sl >= (track.scrollWidth - vw) - 4) current = pages - 1;
+        return { ok: true, vw: vw, perView: perView, pages: pages, current: Math.min(pages - 1, current) };
+      }
+      // Animate scrollLeft directly (rAF). scrollTo({behavior:'smooth'}) is unreliable
+      // across engines/contexts; setting scrollLeft is not — so we ease it ourselves.
+      var animId = null;
+      function animateTo(target) {
+        if (animId) { cancelAnimationFrame(animId); animId = null; }
+        target = Math.max(0, Math.min(track.scrollWidth - track.clientWidth, target));
+        if (reduce) { track.scrollLeft = target; updateDots(); return; }
+        var start = track.scrollLeft, dist = target - start, t0 = null;
+        (function step(ts) {
+          if (t0 == null) t0 = ts;
+          var p = Math.min(1, (ts - t0) / 460);
+          track.scrollLeft = start + dist * (1 - Math.pow(1 - p, 3));
+          updateDots();
+          animId = p < 1 ? requestAnimationFrame(step) : null;
+        })(performance && performance.now ? performance.now() : 0);
+      }
+      function goto(page) {
+        var m = metrics(); if (!m.ok) return;
+        page = Math.max(0, Math.min(m.pages - 1, page));
+        var i = Math.min(page * m.perView, track.children.length - 1);
+        animateTo(childLeft(track.children[i]) - 2);
+      }
+      function next() { var m = metrics(); goto(m.current >= m.pages - 1 ? 0 : m.current + 1); }
+      function prev() { var m = metrics(); goto(m.current <= 0 ? m.pages - 1 : m.current - 1); }
+      function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
+      function startTimer() { stopTimer(); if (reduce || !playing || suspended) return; timer = setInterval(next, 6000); }
+      function setPlaying(p) {
+        playing = p;
+        if (playBtn) { playBtn.setAttribute('aria-label', p ? 'Pause automatic review rotation' : 'Play automatic review rotation'); playBtn.innerHTML = p ? PAUSE : PLAY; }
+        startTimer();
+      }
+      function mkBtn(label, icon, fn) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.setAttribute('data-rev-btn', ''); b.setAttribute('aria-label', label); b.innerHTML = icon;
+        b.addEventListener('click', fn);
+        return b;
+      }
+      function updateDots() {
+        if (!dotsWrap) return;
+        var m = metrics();
+        [].forEach.call(dotsWrap.children, function (d, i) { d.setAttribute('aria-current', i === m.current ? 'true' : 'false'); });
+      }
+      function buildControls() {
+        if (controls) { controls.remove(); controls = null; }
+        stopTimer();
+        var m = metrics();
+        if (!m.ok || m.pages <= 1) return; // no valid width yet, or one page: nothing to rotate
+        controls = document.createElement('div');
+        controls.setAttribute('data-rev-controls', '');
+        var pB = mkBtn('Previous reviews', A_L, prev);
+        var nB = mkBtn('Next reviews', A_R, next);
+        dotsWrap = document.createElement('div'); dotsWrap.setAttribute('data-rev-dots', '');
+        for (var i = 0; i < m.pages; i++) {
+          (function (i) {
+            var d = document.createElement('button');
+            d.type = 'button'; d.setAttribute('data-rev-dot', ''); d.setAttribute('aria-label', 'Go to review page ' + (i + 1));
+            d.addEventListener('click', function () { goto(i); });
+            dotsWrap.appendChild(d);
+          })(i);
+        }
+        playBtn = mkBtn('Pause automatic review rotation', PAUSE, function () { setPlaying(!playing); });
+        playBtn.setAttribute('data-rev-play', '');
+        controls.appendChild(pB); controls.appendChild(dotsWrap); controls.appendChild(playBtn); controls.appendChild(nB);
+        wrap.appendChild(controls);
+        updateDots();
+        setPlaying(!reduce); // auto-rotate unless the visitor prefers reduced motion
+      }
+
+      var st;
+      track.addEventListener('scroll', function () { if (st) return; st = requestAnimationFrame(function () { st = null; updateDots(); }); }, { passive: true });
+      // pause while the visitor is reading (hover / keyboard focus / touch)
+      ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { wrap.addEventListener(ev, function () { suspended = true; stopTimer(); }, { passive: true }); });
+      ['mouseleave', 'focusout'].forEach(function (ev) { wrap.addEventListener(ev, function () { suspended = false; startTimer(); }); });
+      var rt;
+      function rebuild() { clearTimeout(rt); rt = setTimeout(buildControls, 160); }
+      // ResizeObserver catches the case where the track has zero width at build
+      // time (collapsed/hidden ancestor) and rebuilds once it has real width.
+      if (window.ResizeObserver) { new ResizeObserver(rebuild).observe(track); }
+      window.addEventListener('resize', rebuild);
+
+      // build over the fallback cards already in the DOM
+      buildControls();
+
+      // upgrade to live Google reviews when a Featurable widget id is set
+      if (typeof FEATURABLE_WIDGET_ID === 'string' && FEATURABLE_WIDGET_ID) {
+        fetch('https://api.featurable.com/v1/widgets/' + encodeURIComponent(FEATURABLE_WIDGET_ID))
+          .then(function (r) { if (!r.ok) throw new Error('bad status'); return r.json(); })
+          .then(function (d) {
+            var raw = d.reviews || (d.widget && d.widget.reviews) || [];
+            var list = raw.map(function (r) {
+              var rev = r.reviewer || {};
+              var au = r.author || {};
+              return {
+                author: rev.displayName || au.name || 'Google user',
+                avatar: rev.profilePhotoUrl || au.avatarUrl || au.photoUrl || '',
+                rating: r.starRating || (r.rating && r.rating.value) || 5,
+                text: (r.comment || r.text || '').trim(),
+                url: r.url || ''
+              };
+            }).filter(function (r) { return r.text; }).slice(0, 24);
+            var sum = (d.widget && d.widget.gbpLocationSummary) || {};
+            var rating = d.averageRating != null ? d.averageRating : sum.rating;
+            var count = d.totalReviewCount != null ? d.totalReviewCount : sum.reviewsCount;
+            if (rating != null || count != null) setAggregate(rating, count);
+            if (list.length) { track.innerHTML = list.map(cardHTML).join(''); track.scrollLeft = 0; buildControls(); }
+          })
+          .catch(function () { /* keep the fallback reviews already shown */ });
+      }
+    })();
 
     // Booking form → capture the lead, then confirm
     var form = document.querySelector('[data-book-form]');
