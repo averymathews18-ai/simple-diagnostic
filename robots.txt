@@ -31,4 +31,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://averymathews18-ai.github.io/simple-diagnostic/sitemap.xml
+Sitemap: https://simplediagnosticmobilerepair.com/sitemap.xml
